@@ -1,10 +1,9 @@
-// Hash Map, stored both keys and values
+// Hash set, Just stores the keys
 
 // node
 class Node {
-  constructor(key, value, nextNode = null) {
+  constructor(key, nextNode = null) {
     this.key = key;
-    this.value = value;
     this.nextNode = nextNode;
   }
 }
@@ -39,17 +38,17 @@ class HashMap {
     oldBuckets.forEach((bucket) => {
       let current = bucket;
       while (current != null) {
-        this.set(current.key, current.value);
+        this.set(current.key);
         current = current.nextNode;
       }
     });
   }
 
-  //set(key, value), add a node, if already there then overwrite
-  set(key, value) {
+  //set(key), add a node, if already there then overwrite
+  set(key) {
     const index = this.hash(key);
     const buckets = this.buckets;
-    const newNode = new Node(key, value);
+    const newNode = new Node(key);
 
     if (!this.has(key)) {
       //   resize if array not big enough and key not in the hash map.
@@ -191,22 +190,6 @@ class HashMap {
     return console.log(keyArray);
   }
 
-  // values() , returns an array of all the values
-  values() {
-    const buckets = this.buckets;
-    const valueArray = [];
-
-    buckets.forEach((bucket) => {
-      let current = bucket;
-      while (current !== null) {
-        valueArray.push(current.value);
-        current = current.nextNode;
-      }
-    });
-
-    return console.log(valueArray);
-  }
-
   // entries(), returns an array containing key value pairs. Example: [[firstKey, firstValue], [secondKey, secondValue]]
   entries() {
     const buckets = this.buckets;
@@ -219,7 +202,7 @@ class HashMap {
       }
       let nodes = [];
       while (current !== null) {
-        let node = [current.key, current.value];
+        let node = [current.key];
         nodes.push(node);
         current = current.nextNode;
       }
@@ -234,22 +217,22 @@ class HashMap {
 // testing all methods
 const test = new HashMap();
 
-test.set("apple", "red");
-test.set("banana", "yellow");
-test.set("carrot", "orange");
-test.set("dog", "brown");
-test.set("elephant", "gray");
-test.set("frog", "green");
-test.set("grape", "purple");
-test.set("hat", "black");
-test.set("ice cream", "white");
-test.set("jacket", "blue");
-test.set("kite", "pink");
-test.set("lion", "golden");
-test.set("moon", "silver");
+test.set("apple");
+test.set("banana");
+test.set("carrot");
+test.set("dog");
+test.set("elephant");
+test.set("frog");
+test.set("grape");
+test.set("hat");
+test.set("ice cream");
+test.set("jacket");
+test.set("kite");
+test.set("lion");
+test.set("moon");
 
-test.set("ice cream", "white");
-test.set("elephant", "gray");
+test.set("ice cream");
+test.set("elephant");
 
 test.get("ice cream");
 test.get("hello");
@@ -263,8 +246,6 @@ test.remove("hello");
 test.length();
 
 test.keys();
-
-test.values();
 
 test.entries();
 
